@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <title>sample</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<script language="javascript" type="text/javascript" src="./static/js/file_open.js"></script>
+<script language="javascript" type="text/javascript" src="./static/js/library.js"></script>
+
+<body>
+  <form id="form1">
+    <input type="file" accept=".log,.txt" id="select-file" onchange="selectFile()" />
+  </form>
+  <div>
+    <input type="button" value="Clear" onclick="clearTextarea()" />
+    <input type="button" value="Load" onclick="selectFile()" />
+  </div>
+  <textarea id="output" readonly></textarea>
+  <br>
+</body>
+
+</html>
