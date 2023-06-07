@@ -54,8 +54,33 @@ function formatDate(date, format) {
 };
 
 function getType(msg) {
-    var type = msg
-    
-    console.log(type)
-    return type
+    var result = msg.slice(msg.indexOf(" ", 0) + 1, msg.indexOf("[", 0));
+    return result
+};
+
+function getResponse(msg) {
+    var result = msg.slice(msg.indexOf("[", 0), msg.indexOf("]", 0) + 1);
+    return result
+};
+
+// 未完
+function getFromAddress(msg) {
+    var start = msg.indexOf(" from ") + 6
+    var end = msg.indexOf(",", start)
+    var result = msg.slice(start, end);
+    return result
+};
+
+function getToUrl(msg) {
+    var start = msg.indexOf(" url ") + 5
+    var end = msg.indexOf(" ", start)
+    var result = msg.slice(start, end);
+    return result
+};
+
+function getToAddress(msg) {
+    var start = msg.indexOf(" to ") + 4
+    var end = msg.indexOf(" ", start)
+    var result = msg.slice(start, end);
+    return result
 };

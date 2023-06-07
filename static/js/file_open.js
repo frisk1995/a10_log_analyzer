@@ -33,24 +33,34 @@ function logAnalyzer(strline) {
     let output_line = [];
     var d = new Date();
 
+    output_line.push("datetime,Type,response,fromAddress,fromPort,toAddress,toPort,toUrl")
+
     // ログファイルを改行単位で分割
     const messages = strline.split(/\n/);
     for (const str of messages) {
         const str1 = str.split(/Info/)
         const log_date = str1[0].split(/ +/)
-        const log_msg = str1[1].split(/:/)
+
+        // get YYYY/MM/dd hh:mm:ss
         const year = log_date[2]
         const month = changeMonth(log_date[0])
         const day = log_date[1]
         const time = log_date[3]
-        //        const type = log_msg[1] //msg部分
-        var type = getType(log_msg[1]);
-        var response = log_msg[1].substr(log_msg[1].indexOf("[", 0), log_msg[1].indexOf("]", 0));
-        const d = new Date(year, month, day);
 
+        var type = getType(str1[1].split(/:/)[1])
+        var response = getResponse(str1[1].split(/:/)[1])
+        var fromAddress = getFromAddress(str1[1])
+        var toUrl = getToUrl(str1[1])
+        var toAddress = getToAddress(str1[1])
+        var fromPort = fromAddress.split(/:/)[1]
+        var toPort = toAddress.split(/:/)[1]
+
+        if (typeof fromPort === 'undefined') { fromPort = "" }
+        if (typeof toPort === 'undefined') { toPort = "" }
         // methodごとに処理を分ける
         // 出力
-        output_line.push(d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response);
+        const d = new Date(year, month, day)
+        output_line.push(d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toUrl);
     }
     return output_line;
 }
