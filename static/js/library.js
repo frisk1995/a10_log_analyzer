@@ -54,12 +54,16 @@ function formatDate(date, format) {
 };
 
 function getType(msg) {
-    var result = msg.slice(msg.indexOf(" ", 0) + 1, msg.indexOf("[", 0));
+    var start = 0;
+    var end = msg.indexOf("[", start)
+    var result = msg.slice(start, end)
     return result
 };
 
 function getResponse(msg) {
-    var result = msg.slice(msg.indexOf("[", 0), msg.indexOf("]", 0) + 1);
+    var start = msg.indexOf("[", 0);
+    var end = msg.indexOf("]", start) + 1
+    var result = msg.slice(start, end)
     return result
 };
 
@@ -67,14 +71,15 @@ function getResponse(msg) {
 function getFromAddress(msg) {
     var start = msg.indexOf(" from ") + 6
     var end = msg.indexOf(",", start)
-    var result = msg.slice(start, end);
+    var result = msg.slice(start, end)
     return result
 };
 
 function getToUrl(msg) {
     var start = msg.indexOf(" url ") + 5
     var end = msg.indexOf(" ", start)
-    var result = msg.slice(start, end);
+    var result = msg.slice(start, end)
+    if (msg.indexOf(" url ") == -1) { result = "" }
     return result
 };
 

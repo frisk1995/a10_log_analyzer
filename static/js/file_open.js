@@ -13,7 +13,7 @@ const selectFile = () => {
     reader.onload = () => {
         // テキストエリアに書き込み
         let output_text = logAnalyzer(reader.result);
-//        getFileCSV(output_text)
+        //        getFileCSV(output_text)
         for (const line of output_text) {
             //document.querySelector("#output").innerHTML = line
             document.getElementById("output").value += line + "\n";
@@ -41,21 +41,21 @@ function logAnalyzer(strline) {
 
     // ログファイルを改行単位で分割
     const messages = strline.split(/\n/);
-    for (const str of messages) {
-        const str1 = str.split(/Info/)
-        const log_date = str1[0].split(/ +/)
-
+    for (const str1 of messages) {
+        const log_date = str1.split(/ +/)
+        const log_msg = str1.split(/Proxy /);
+        console.log(log_msg[1])
         // get YYYY/MM/dd hh:mm:ss
         const year = log_date[2]
         const month = changeMonth(log_date[0])
         const day = log_date[1]
         const time = log_date[3]
 
-        var type = getType(str1[1].split(/:/)[1])
-        var response = getResponse(str1[1].split(/:/)[1])
-        var fromAddress = getFromAddress(str1[1])
-        var toUrl = getToUrl(str1[1])
-        var toAddress = getToAddress(str1[1])
+        var type = getType(log_msg[1])
+        var response = getResponse(log_msg[1])
+        var fromAddress = getFromAddress(log_msg[1])
+        var toUrl = getToUrl(log_msg[1])
+        var toAddress = getToAddress(log_msg[1])
         var fromPort = fromAddress.split(/:/)[1]
         var toPort = toAddress.split(/:/)[1]
 
