@@ -12,12 +12,15 @@
 
 <body>
   <form id="form1">
-    <input type="file" accept=".log,.txt" id="select-file" onchange="selectFile()" />
+    <div>
+      <input type="file" accept=".log,.txt" id="select-file" onchange="selectFile()" />
+    </div>
+
+    <input type="button" value="Clear Log" onclick="clearTextarea()" />
+    <input type="button" value="Load File" onclick="selectFile()" />
+    <input type="button" value="File Download" onclick="getFileCSV()" />
   </form>
-  <div>
-    <input type="button" value="Clear" onclick="clearTextarea()" />
-    <input type="button" value="Load" onclick="selectFile()" />
-  </div>
+
   <textarea id="output" readonly></textarea>
   <br>
 </body>

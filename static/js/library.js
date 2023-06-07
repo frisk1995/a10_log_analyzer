@@ -84,3 +84,13 @@ function getToAddress(msg) {
     var result = msg.slice(start, end);
     return result
 };
+
+function getFileCSV() {
+    const result = document.getElementById('output').value;
+    let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    let blob = new Blob([bom, result], { type: "text/csv" });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'output.csv';
+    link.click();
+}

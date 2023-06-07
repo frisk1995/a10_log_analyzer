@@ -13,7 +13,7 @@ const selectFile = () => {
     reader.onload = () => {
         // テキストエリアに書き込み
         let output_text = logAnalyzer(reader.result);
-        console.log(output_text)
+//        getFileCSV(output_text)
         for (const line of output_text) {
             //document.querySelector("#output").innerHTML = line
             document.getElementById("output").value += line + "\n";
@@ -24,6 +24,10 @@ const selectFile = () => {
     reader.onerror = () => {
         console.log("ファイル読み込みエラー")
     }
+}
+
+const getFile = () => {
+
 }
 
 // ログ解析関数
@@ -69,3 +73,4 @@ function clearTextarea() {
     var textareaForm = document.getElementById("output");
     textareaForm.value = '';
 }
+
