@@ -44,12 +44,23 @@ function logAnalyzer(strline) {
     for (const str1 of messages) {
         const log_date = str1.split(/ +/)
         const log_msg = str1.split(/Proxy /);
-        console.log(log_msg[1])
         // get YYYY/MM/dd hh:mm:ss
-        const year = log_date[2]
-        const month = changeMonth(log_date[0])
-        const day = log_date[1]
-        const time = log_date[3]
+        // rsyslogだと日付がずれるから修正する必要あり
+        var year = ""
+        var month = ""
+        var day = ""
+        var time = ""
+        if (log_date[2].indexOf(":") != -1) {
+            year = "2023"
+            month = changeMonth(log_date[0])
+            day = log_date[1]
+            time = log_date[2]
+        } else {
+            year = log_date[2]
+            month = changeMonth(log_date[0])
+            day = log_date[1]
+            time = log_date[3]
+        }
 
         var type = getType(log_msg[1])
         var response = getResponse(log_msg[1])
