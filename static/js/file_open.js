@@ -86,7 +86,6 @@ function logAnalyzer(strline) {
         // 出力
         const d = new Date(year, month, day)
         output_line.push(line_counter + "," + d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toDoamin + "," + toUrl);
-        console.log(output_line)
         line_counter ++;
     }
     return output_line;

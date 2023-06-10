@@ -96,15 +96,30 @@ function getToAddress(msg) {
     return result
 };
 
-function getFileCSV() {
-    const result = document.getElementById('output').value;
-    let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    let blob = new Blob([bom, result], { type: "text/csv" });
-    let link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'output.csv';
-    link.click();
-}
+const output = () => {
+    const table = document.getElementById('dataTable')
+    const escaped = /,|\r?\n|\r|"/;
+    const e = /"/g;
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF])
+    const csv = []
+    const row = []
+
+    for (let r = 0; r < table.rows.length; r++) {
+      row.length = 0
+      for (let c = 0; c < table.rows[r].cells.length; c++) {
+        const field = table.rows[r].cells[c].textContent
+        row.push(escaped.test(field) ? '"' + field.replace(e, '""') + '"' : field)
+      }
+      csv.push(row.join(','))
+    }
+    const blob = new Blob([bom, csv.join('\n')], {
+      'type': 'text/csv'
+    })
+    const a = document.getElementById('output_btn')
+    a.download = 'output.csv'
+    a.href = window.URL.createObjectURL(blob)
+
+  }
 
 function createArray(output_text) {
     let result = [];
@@ -116,7 +131,6 @@ function createArray(output_text) {
 
 function createTable(result) {
     const resultTable = document.getElementById("resultTable");
-
     result.forEach((line) => {
         const tr = document.createElement("tr");
         resultTable.appendChild(tr);
@@ -125,7 +139,6 @@ function createTable(result) {
             const td = document.createElement("td");
             td.textContent = arr[1];
             tr.appendChild(td);
-            console.log(td)
         });
     });
 }

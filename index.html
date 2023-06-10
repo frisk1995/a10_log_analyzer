@@ -15,8 +15,9 @@
     <input type="file" name="file" id="select-file" onchange="selectFile()" />
   </div>
   <hr>
-  <input type="button" value="File Download" onclick="getFileCSV()" />
-  <table class="content-table">
+  <a href="javascript:void(0);" id="output_btn" onclick="output()" class="btn_23">File Download</a>
+  <!--  <input type="button" value="File Download" onclick="getFileCSV()" class="button"/> -->
+  <table class="content-table" id="dataTable">
     <thead>
       <tr>
         <th>No</th>
