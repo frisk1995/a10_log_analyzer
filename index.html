@@ -11,18 +11,28 @@
 <script language="javascript" type="text/javascript" src="./static/js/library.js"></script>
 
 <body>
-  <form id="form1">
-    <div>
-      <input type="file" accept=".log,.txt" id="select-file" onchange="selectFile()" />
-    </div>
-
-    <input type="button" value="Clear Log" onclick="clearTextarea()" />
-    <input type="button" value="Load File" onclick="selectFile()" />
-    <input type="button" value="File Download" onclick="getFileCSV()" />
-  </form>
-
-  <textarea id="output" readonly></textarea>
-  <br>
+  <div class="uploader">
+    <input type="file" name="file" id="select-file" onchange="selectFile()" />
+  </div>
+  <hr>
+  <input type="button" value="File Download" onclick="getFileCSV()" />
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>datetime</th>
+        <th>Type</th>
+        <th>response</th>
+        <th>fromAddress</th>
+        <th>fromPort</th>
+        <th>toAddress</th>
+        <th>toPort</th>
+        <th>toDomain</th>
+        <th>toUrl</th>
+      </tr>
+    </thead>
+    <tbody id="resultTable"></tbody> <!-- ここに配列の中身を表示させる -->
+  </table>
 </body>
 
 </html>

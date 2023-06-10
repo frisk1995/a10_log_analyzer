@@ -82,7 +82,13 @@ function getToUrl(msg) {
     if (msg.indexOf(" url ") == -1) { result = "" }
     return result
 };
-
+function getToDomain(msg) {
+    var start = msg.indexOf("]:") + 2
+    var end = msg.indexOf(" ", start)
+    var result = msg.slice(start, end)
+    if (msg.indexOf("]:") == -1) { result = "" }
+    return result
+};
 function getToAddress(msg) {
     var start = msg.indexOf(" to ") + 4
     var end = msg.indexOf(" ", start)
@@ -98,4 +104,28 @@ function getFileCSV() {
     link.href = URL.createObjectURL(blob);
     link.download = 'output.csv';
     link.click();
+}
+
+function createArray(output_text) {
+    let result = [];
+    for (const line of output_text) {
+        result.push(line.split(/,/))
+    }
+    return result;
+}
+
+function createTable(result) {
+    const resultTable = document.getElementById("resultTable");
+
+    result.forEach((line) => {
+        const tr = document.createElement("tr");
+        resultTable.appendChild(tr);
+        const objArray = Object.entries(line);
+        objArray.forEach((arr) => {
+            const td = document.createElement("td");
+            td.textContent = arr[1];
+            tr.appendChild(td);
+            console.log(td)
+        });
+    });
 }

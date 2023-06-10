@@ -1,3 +1,8 @@
+/*
+document.querySelector('input').addEventListener('change', (evt) => {
+    console.log(evt.target.files[0]);
+  });
+*/
 const selectFile = () => {
     // FileListオブジェクト取得
     const selectFiles = document.querySelector("#select-file").files
@@ -14,10 +19,13 @@ const selectFile = () => {
         // テキストエリアに書き込み
         let output_text = logAnalyzer(reader.result);
         //        getFileCSV(output_text)
-        for (const line of output_text) {
-            //document.querySelector("#output").innerHTML = line
-            document.getElementById("output").value += line + "\n";
-        }
+        createTable(createArray(output_text.slice(1)))
+        /*
+                for (const line of output_text) {
+                    //document.querySelector("#output").innerHTML = line
+                    document.getElementById("output").value += line + "\n";
+                }
+        */
     }
 
     // ファイル読み込みエラー時の処理
@@ -37,10 +45,11 @@ function logAnalyzer(strline) {
     let output_line = [];
     var d = new Date();
 
-    output_line.push("datetime,Type,response,fromAddress,fromPort,toAddress,toPort,toUrl")
+    output_line.push("No,datetime,Type,response,fromAddress,fromPort,toAddress,toPort,toDomain,toUrl")
 
     // ログファイルを改行単位で分割
     const messages = strline.split(/\n/);
+    var line_counter = 1;
     for (const str1 of messages) {
         const log_date = str1.split(/ +/)
         const log_msg = str1.split(/Proxy /);
@@ -66,6 +75,7 @@ function logAnalyzer(strline) {
         var response = getResponse(log_msg[1])
         var fromAddress = getFromAddress(log_msg[1])
         var toUrl = getToUrl(log_msg[1])
+        var toDoamin = getToDomain(log_msg[1])
         var toAddress = getToAddress(log_msg[1])
         var fromPort = fromAddress.split(/:/)[1]
         var toPort = toAddress.split(/:/)[1]
@@ -75,13 +85,10 @@ function logAnalyzer(strline) {
         // methodごとに処理を分ける
         // 出力
         const d = new Date(year, month, day)
-        output_line.push(d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toUrl);
+        output_line.push(line_counter + "," + d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toDoamin + "," + toUrl);
+        console.log(output_line)
+        line_counter ++;
     }
     return output_line;
-}
-
-function clearTextarea() {
-    var textareaForm = document.getElementById("output");
-    textareaForm.value = '';
 }
 
