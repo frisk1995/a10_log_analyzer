@@ -48,6 +48,7 @@
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    word-wrap: break-word;
 }
 
 .content-table thead tr {
@@ -76,12 +77,12 @@
 .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #3eb4c7;
 }
-
+/*
 .content-table tbody tr:hover {
     font-weight: bold;
     color: #3eb4c7;
 }
-
+*/
 /*
 *{
     outline: 2px red solid;

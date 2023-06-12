@@ -15,21 +15,43 @@
     <input type="file" name="file" id="select-file" onchange="selectFile()" />
   </div>
   <hr>
-  <a href="javascript:void(0);" id="output_btn" onclick="output()" class="btn_23">File Download</a>
+  <table>
+    <tr>
+      <td> <a href="javascript:void(0);" id="output_btn" onclick="output()" class="btn_23">File Download</a>
+      </td>
+      <!--
+      <td> <a href="javascript:void(0);" id="reload_btn" onclick="clearTable()" class="btn_23">データ初期化</td>
+-->
+    </tr>
+  </table>
+  </a>
   <!--  <input type="button" value="File Download" onclick="getFileCSV()" class="button"/> -->
+  <hr>
+  チェックを外すとカラムを非表示にできます。<br>
+  ※データを読み込んでからチェックを外してください。
+  <table>
+    <tr>
+      <td> <input type="checkbox" id="res_check" onclick="checkbox_cell(this,'res_display')" checked="checked">Response
+      </td>
+      <td> <input type="checkbox" id="type_check" onclick="checkbox_cell(this,'type_display')" checked="checked">Type
+      </td>
+      <td> <input type="checkbox" id="url_check" onclick="checkbox_cell(this,'url_display')" checked="checked">ToURL
+      </td>
+    </tr>
+  </table>
   <table class="content-table" id="dataTable">
     <thead>
       <tr>
-        <th>No</th>
-        <th>日付</th>
-        <th>Type</th>
-        <th>Response</th>
-        <th>From<br>Address</th>
-        <th>From<br>Port</th>
-        <th>To<br>Address</th>
-        <th>To<br>Port</th>
-        <th>To<br>Domain</th>
-        <th>To<br>Url</th>
+        <th width="3%">No</th>
+        <th width="10%" >日付</th>
+        <th width="7%" id="type_display">Type</th>
+        <th width="15%" id="res_display">Response</th>
+        <th width="10%">From<br>Address</th>
+        <th width="7%">From<br>Port</th>
+        <th width="10%">To<br>Address</th>
+        <th width="7%">To<br>Port</th>
+        <th >To<br>Domain</th>
+        <th id="url_display">To<br>Url</th>
       </tr>
     </thead>
     <tbody id="resultTable"></tbody> <!-- ここに配列の中身を表示させる -->

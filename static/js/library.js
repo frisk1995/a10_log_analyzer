@@ -142,3 +142,8 @@ function createTable(result) {
         });
     });
 }
+
+const clearTable = () => {
+    const resultTable = document.getElementById("resultTable");
+    resultTable.remove()
+}

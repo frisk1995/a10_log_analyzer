@@ -3,6 +3,26 @@ document.querySelector('input').addEventListener('change', (evt) => {
     console.log(evt.target.files[0]);
   });
 */
+window.onload = function () {
+    var array = ["res", "type", "url"];
+    for (var j = 0; j < array.length; j++) {
+        var id = array[j] + "_display";
+        var obj = array[j] + "_check";
+        var CELL = document.getElementById(id);
+        var TABLE = CELL.parentNode.parentNode.parentNode;
+        for (var i = 0; TABLE.rows[i]; i++) {
+            TABLE.rows[i].cells[CELL.cellIndex].style.display = (document.getElementById(obj).checked) ? '' : 'none';
+        }
+    }
+}
+function checkbox_cell(obj, id) {
+    var CELL = document.getElementById(id);
+    var TABLE = CELL.parentNode.parentNode.parentNode;
+    for (var i = 0; TABLE.rows[i]; i++) {
+        TABLE.rows[i].cells[CELL.cellIndex].style.display = (obj.checked) ? '' : 'none';
+    }
+}
+
 const selectFile = () => {
     // FileListオブジェクト取得
     const selectFiles = document.querySelector("#select-file").files
@@ -16,7 +36,6 @@ const selectFile = () => {
 
     // ファイル読み込み完了時の処理
     reader.onload = () => {
-        // テキストエリアに書き込み
         let output_text = logAnalyzer(reader.result);
         //        getFileCSV(output_text)
         createTable(createArray(output_text.slice(1)))
@@ -32,10 +51,6 @@ const selectFile = () => {
     reader.onerror = () => {
         console.log("ファイル読み込みエラー")
     }
-}
-
-const getFile = () => {
-
 }
 
 // ログ解析関数
@@ -75,7 +90,7 @@ function logAnalyzer(strline) {
         var response = getResponse(log_msg[1])
         var fromAddress = getFromAddress(log_msg[1])
         var toUrl = getToUrl(log_msg[1])
-        var toDoamin = getToDomain(log_msg[1])
+        var toDomain = getToDomain(log_msg[1])
         var toAddress = getToAddress(log_msg[1])
         var fromPort = fromAddress.split(/:/)[1]
         var toPort = toAddress.split(/:/)[1]
@@ -85,8 +100,8 @@ function logAnalyzer(strline) {
         // methodごとに処理を分ける
         // 出力
         const d = new Date(year, month, day)
-        output_line.push(line_counter + "," + d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toDoamin + "," + toUrl);
-        line_counter ++;
+        output_line.push(line_counter + "," + d.toLocaleDateString({ year: "numeric", month: "2-digit" }) + " " + time + "," + type + "," + response + "," + fromAddress.split(/:/)[0] + "," + fromPort + "," + toAddress.split(/:/)[0] + "," + toPort + "," + toDomain + "," + toUrl);
+        line_counter++;
     }
     return output_line;
 }
